@@ -15,7 +15,7 @@ text_for_testing = '''
 # The cat ran away down the corridor.
 # '''
 
-f1 = open('A tale of two cities.txt','r')
+f1 = open('A tale of two cities book 1 and 2.txt','r')
 text1 = '\n'.join([line.decode('utf-8').strip() for line in f1.readlines()])
 f1.close()
 
@@ -40,14 +40,10 @@ def get_nouns(text):
 
 
 nouns1 = get_nouns(text1)
-M = len(nouns1)
+N = len(nouns1)
 all_counts = Counter(nouns1)
-# I would like to remove the nouns only used once.
-counts = Counter({k:v for k,v in all_counts.iteritems() if v > 1})
-N = len(counts.keys())
-print M, N
-topN = zip(*counts.most_common(N))[0]
-leastN = zip(*counts.most_common()[:-N-1:-1])[0]
+topN = zip(*all_counts.most_common(N))[0]
+leastN = zip(*all_counts.most_common()[:-N-1:-1])[0]
 
 convert = {t:l for t,l in zip(topN,leastN)}
 convert.update({t.capitalize():l.capitalize() for t,l in zip(topN,leastN)})
