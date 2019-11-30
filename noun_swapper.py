@@ -40,9 +40,14 @@ def get_nouns(text):
 
 
 nouns1 = get_nouns(text1)
-N = len(nouns1)
-topN = zip(*Counter(nouns1).most_common(N))[0]
-leastN = zip(*Counter(nouns1).most_common()[:-N-1:-1])[0]
+M = len(nouns1)
+all_counts = Counter(nouns1)
+# I would like to remove the nouns only used once.
+counts = Counter({k:v for k,v in all_counts.iteritems() if v > 1})
+N = len(counts.keys())
+print M, N
+topN = zip(*counts.most_common(N))[0]
+leastN = zip(*counts.most_common()[:-N-1:-1])[0]
 
 convert = {t:l for t,l in zip(topN,leastN)}
 convert.update({t.capitalize():l.capitalize() for t,l in zip(topN,leastN)})
